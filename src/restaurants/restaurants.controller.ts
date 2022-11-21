@@ -24,8 +24,10 @@ export class RestaurantsController {
   }
 
   @Post()
-  create(@Body() createRestaurantDto: CreateRestaurantDto): Restaurant {
-    return this.restaurantsService.create(createRestaurantDto);
+  async create(
+    @Body() createRestaurantDto: CreateRestaurantDto,
+  ): Promise<Restaurant> {
+    return await this.restaurantsService.create(createRestaurantDto);
   }
 
   @Delete(':id')

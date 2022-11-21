@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Restaurant } from './restaurant.model';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
-import { v4 as uuid } from 'uuid';
+import { RestaurantRepository } from './restaurant.repository';
 
 @Injectable()
 export class RestaurantsService {
+  constructor(private readonly restaurantRepository: RestaurantRepository) {}
   private restaurants = [];
   showAll(): Restaurant[] {
     return this.restaurants;
@@ -18,10 +19,10 @@ export class RestaurantsService {
     return found;
   }
 
-  create(createRestaurantDto: CreateRestaurantDto): Restaurant {
-    const restaurant: Restaurant = { id: uuid(), ...createRestaurantDto };
-    this.restaurants.push(restaurant);
-    return restaurant;
+  async create(createRestaurantDto: CreateRestaurantDto): Promise<Restaurant> {
+    return await this.restaurantRepository.createRestaurant(
+      createRestaurantDto,
+    );
   }
 
   delete(id: string): void {
