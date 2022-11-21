@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { Restaurant } from './restaurant.model';
+import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 
 @Controller('restaurants')
 export class RestaurantsController {
@@ -15,13 +16,8 @@ export class RestaurantsController {
   }
 
   @Post()
-  create(
-    @Body('id') id: string,
-    @Body('name') name: string,
-    @Body('url') url: string,
-    @Body('description') description: string,
-  ): Restaurant {
-    return this.restaurantsService.create(id, name, url, description);
+  create(@Body() createRestaurantDto: CreateRestaurantDto): Restaurant {
+    return this.restaurantsService.create(createRestaurantDto);
   }
 
   @Delete(':id')
