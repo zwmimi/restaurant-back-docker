@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Restaurant } from './restaurant.model';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class RestaurantsService {
@@ -14,7 +15,7 @@ export class RestaurantsService {
   }
 
   create(createRestaurantDto: CreateRestaurantDto): Restaurant {
-    const restaurant: Restaurant = { ...createRestaurantDto };
+    const restaurant: Restaurant = { id: uuid(), ...createRestaurantDto };
     this.restaurants.push(restaurant);
     return restaurant;
   }
