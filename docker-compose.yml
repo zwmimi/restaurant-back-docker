@@ -11,7 +11,7 @@ services:
         source: .
         target: /api
   postgres:
-    image: postgres:12.2-alpine
+    image: postgres:14.2-alpine
     container_name: postgres
     ports:
       - 5432:5432
