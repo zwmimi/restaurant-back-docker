@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { Restaurant } from './restaurant.model';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
@@ -11,7 +19,7 @@ export class RestaurantsController {
     return this.restaurantsService.showAll();
   }
   @Get(':id')
-  showById(@Param('id') id: string): Restaurant {
+  showById(@Param('id', ParseUUIDPipe) id: string): Restaurant {
     return this.restaurantsService.showById(id);
   }
 
@@ -21,7 +29,7 @@ export class RestaurantsController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
+  delete(@Param('id', ParseUUIDPipe) id: string) {
     this.restaurantsService.delete(id);
   }
 }
