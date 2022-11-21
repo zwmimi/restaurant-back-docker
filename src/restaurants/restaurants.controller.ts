@@ -6,10 +6,12 @@ import {
   Param,
   Post,
   ParseUUIDPipe,
+  Patch,
 } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { Restaurant } from './restaurant.model';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
+import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 
 @Controller('restaurants')
 export class RestaurantsController {
@@ -30,6 +32,13 @@ export class RestaurantsController {
     @Body() createRestaurantDto: CreateRestaurantDto,
   ): Promise<Restaurant> {
     return await this.restaurantsService.create(createRestaurantDto);
+  }
+
+  @Patch()
+  async update(
+    @Body() updateRestaurantDto: UpdateRestaurantDto,
+  ): Promise<Restaurant> {
+    return await this.restaurantsService.update(updateRestaurantDto);
   }
 
   @Delete(':id')
